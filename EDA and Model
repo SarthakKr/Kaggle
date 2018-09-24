@@ -1,17 +1,14 @@
-## Start from the clear slate
-rm(list = ls())
-## Set working directory
-setwd("C:\\Users\\Nitika\\Desktop\\Kaggle\\01- GA Customer Revenue Prediction\\Data")
-## Read in Data Sets
-train_data<- read.csv("train.csv",stringsAsFactors = FALSE)
-test_data<- read.csv("test.csv",stringsAsFactors = FALSE)
-sample_submissions<- read.csv("sample_submission.csv")
-## Read in Libraries
-library(jsonlite,dplyr,purrr,tidyr)
-## Sample out train data for quick stats
-train_sample<- data.frame(train_data[1:5,], stringsAsFactors = FALSE ) 
-train_sample$device<- as.character(train_sample$device)
-## Append train and test for collective summary
+rm(list=ls())
+
+library(jsonlite)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
+train_data<- read.csv("../input/train.csv", stringsAsFactors = FALSE)
+test_data<- read.csv("../input/test.csv", stringsAsFactors = FALSE)
+sample_submissions<- read.csv("../input/sample_submission.csv", stringsAsFactors = FALSE)
+
 train_data$train_flag<-1
 test_data$train_flag<-0
 all_data<- rbind(train_data, test_data)
@@ -43,3 +40,17 @@ write.csv(flattened_data,paste("flattened_data_,",mycol,".csv", sep=''), row.nam
 all_data[,mycol]<-NULL
 all_data<<-cbind(all_data,flattened_data)
 }
+
+         
+         
+
+         
+
+
+
+
+
+
+
+
+
