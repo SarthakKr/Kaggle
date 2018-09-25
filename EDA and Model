@@ -3,14 +3,12 @@ rm(list = ls())
 ## Set working directory
 setwd("C:\\Users\\Nitika\\Desktop\\Kaggle\\01- GA Customer Revenue Prediction\\Data")
 ## Read in Data Sets
-train_data<- read.csv("train.csv",stringsAsFactors = FALSE)
-test_data<- read.csv("test.csv",stringsAsFactors = FALSE)
+train_data<- read.csv("train.csv", colClasses = rep('factor', 12) )
+test_data<- read.csv("test.csv", colClasses = rep('factor', 12))
 sample_submissions<- read.csv("sample_submission.csv")
 ## Read in Libraries
 library(jsonlite); library(dplyr); library(gtools)
-## Sample out train data for quick stats
-train_sample<- data.frame(train_data[1:5,], stringsAsFactors = FALSE ) 
-train_sample$device<- as.character(train_sample$device)
+
 ## Append train and test for collective summary
 train_data$train_flag<-1
 test_data$train_flag<-0
@@ -21,7 +19,7 @@ all_data<- rbind(train_data, test_data)
 
 for (mycol in c("device","geoNetwork","totals","trafficSource")){
   #for (mycol in c("device","geoNetwork")){
-
+  all_data[,mycol]<- as.character(all_data[,mycol])
   flattened_data<- as.data.frame(do.call( bind_rows, 
                                           lapply(all_data[,mycol], 
                                                  function(j) as.list(unlist(fromJSON(j, flatten=TRUE))))))
@@ -47,3 +45,9 @@ for (mycol in c("device","geoNetwork","totals","trafficSource")){
   all_data<<-cbind(all_data,flattened_data)
   print(paste("Done with all operations for variable:",mycol))
 }
+
+
+
+write.csv(all_data, "all_data.csv", row.names = F)
+
+
