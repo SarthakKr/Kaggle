@@ -48,6 +48,19 @@ for (mycol in c("device","geoNetwork","totals","trafficSource")){
 
 
 
+
+all_data$date<-as.Date.character(all_data$date, format = "%Y%m%d")
+all_data$month<- format.Date(all_data$date,"%m")
+all_data$year<- as.numeric(format.Date(all_data$date,"%Y"))
+all_data$weekday<- weekdays(all_data$date)
+
 write.csv(all_data, "all_data.csv", row.names = F)
 
 
+#all_data<- read.csv("all_data.csv", nrows = 500000, colClasses = rep('factor', 59))
+
+library(h2o)
+instance<- h2o.init()
+model_data<- as.h2o(all_data, destination_frame = "model_data.hex")
+
+y_var<-c("transactionRevenue")
