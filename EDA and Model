@@ -1,8 +1,8 @@
 rm(list=ls())
 
-train_data<- read.csv("../input/train.csv", colClasses = rep('factor', 12))
-test_data<- read.csv("../input/test.csv", colClasses = rep('factor', 12))
-sample_submissions<- read.csv("../input/sample_submission.csv", stringsAsFactors = FALSE)
+train_data<- read.csv("../input/ga-customer-revenue-prediction/train.csv", colClasses = rep('factor', 12))
+test_data<- read.csv("../input/ga-customer-revenue-prediction/test.csv", colClasses = rep('factor', 12))
+sample_submissions<- read.csv("../input/ga-customer-revenue-prediction/sample_submission.csv", stringsAsFactors = FALSE)
 
 
 
