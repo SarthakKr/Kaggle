@@ -1,11 +1,11 @@
-## Start from the clear slate
-rm(list = ls())
-## Set working directory
-setwd("C:\\Users\\Nitika\\Desktop\\Kaggle\\01- GA Customer Revenue Prediction\\Data")
-## Read in Data Sets
-train_data<- read.csv("train.csv", colClasses = rep('factor', 12) )
-test_data<- read.csv("test.csv", colClasses = rep('factor', 12))
-sample_submissions<- read.csv("sample_submission.csv")
+rm(list=ls())
+
+train_data<- read.csv("../input/ga-customer-revenue-prediction/train.csv", colClasses = rep('factor', 12))
+test_data<- read.csv("../input/ga-customer-revenue-prediction/test.csv", colClasses = rep('factor', 12))
+sample_submissions<- read.csv("../input/ga-customer-revenue-prediction/sample_submission.csv", stringsAsFactors = FALSE)
+
+
+
 ## Read in Libraries
 library(jsonlite); library(dplyr); library(gtools)
 
@@ -56,11 +56,63 @@ all_data$weekday<- weekdays(all_data$date)
 
 write.csv(all_data, "all_data.csv", row.names = F)
 
-
-#all_data<- read.csv("all_data.csv", nrows = 500000, colClasses = rep('factor', 59))
-
 library(h2o)
 instance<- h2o.init()
-model_data<- as.h2o(all_data, destination_frame = "model_data.hex")
 
-y_var<-c("transactionRevenue")
+all_data_h2o<- as.h2o(all_data, destination_frame='all_data_h2o.hex')
+all_data_h2o$visitNumber<- h2o.asnumeric(all_data_h2o$visitNumber)
+all_data_h2o$visitStartTime <- h2o.asnumeric(all_data_h2o$visitStartTime )
+all_data_h2o$hits <- h2o.asnumeric(all_data_h2o$hits )
+all_data_h2o$pageviews <- h2o.asnumeric(all_data_h2o$pageviews )
+all_data_h2o$transactionRevenue <- h2o.asnumeric(all_data_h2o$transactionRevenue )
+#all_data_h2o$adwordsClickInfo.page<- h2o.asnumeric(all_data_h2o$adwordsClickInfo.page)
+all_dat
+y_vars<- c("transactionRevenue")
+x_vars<-c("channelGrouping","visitNumber","visitStartTime","browser","operatingSystem","isMobile"
+        ,"deviceCategory","continent","subContinent","country","region","metro","city","bounces","newVisits",
+        "campaign","source","medium","keyword","adwordsClickInfo.criteriaParameters","isTrueDirect",
+        "referralPath",
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
